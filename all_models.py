@@ -15,3 +15,6 @@ llm_online = ChatOpenAI(
 
 # 本地大模型
 llm_offline = ChatOllama(model="llama3.1:latest", base_url="http://localhost:11434")
+
+# 用来做意图识别的本地大模型
+llm_ID = ChatOllama(model="deepseek-r1:1.5b", base_url="http://localhost:11434")

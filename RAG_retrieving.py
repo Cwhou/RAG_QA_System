@@ -4,13 +4,12 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableLambda, RunnableBranch
 from langchain_redis import RedisVectorStore, RedisConfig
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_ollama import ChatOllama
 from langchain_community.retrievers import BM25Retriever
 from langchain_classic.retrievers import EnsembleRetriever
 import jieba
 import json
 import re
-from all_models import embedding_model, llm_online, llm_offline
+from all_models import embedding_model, llm_online, llm_offline, llm_ID
 from context_processing import save_memory, load_recent_memory, format_history_for_prompt
 from rerank_processing import retrieve_and_rerank, pack_docs_for_compression
 
@@ -70,8 +69,6 @@ prompt_template = ChatPromptTemplate.from_messages(([
     """)
 ]))
 
-# 用来做意图识别的本地大模型
-llm_ID = ChatOllama(model="deepseek-r1:1.5b", base_url="http://localhost:11434")
 # 路由函数
 def router(query: str):
     router_prompt_template = ChatPromptTemplate.from_messages([
